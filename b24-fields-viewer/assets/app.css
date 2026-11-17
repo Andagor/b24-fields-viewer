@@ -1,0 +1,172 @@
+:root {
+    --border: #dfe3e6;
+    --text: #333;
+    --muted: #80868e;
+    --head: #eef2f4;
+    --hover: #f5f9fb;
+    --link: #2067b0;
+    --yes: #2e8b2e;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    height: 100%;
+    font: 13px/1.4 "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    background: #fff;
+}
+
+.app { display: flex; flex-direction: column; height: 100vh; }
+
+/* ---------- панель ---------- */
+.bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+select, input[type=search] {
+    height: 32px;
+    border: 1px solid #c6cdd3;
+    border-radius: 2px;
+    padding: 0 8px;
+    font: inherit;
+    color: var(--text);
+    background: #fff;
+}
+select { min-width: 280px; max-width: 440px; }
+#q { flex: 1; min-width: 220px; }
+select:focus, input:focus { outline: none; border-color: #3bc8f5; }
+
+.chk { display: flex; align-items: center; gap: 4px; color: #535c69; white-space: nowrap; cursor: pointer; }
+.chk.hidden { display: none; }
+
+.btn {
+    height: 32px;
+    padding: 0 12px;
+    border: 1px solid #c6cdd3;
+    border-radius: 2px;
+    background: #fff;
+    color: #535c69;
+    font: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.btn:hover { background: #f2f5f7; }
+.btn.sm { height: 22px; padding: 0 8px; font-size: 12px; margin-left: 8px; font-weight: normal; }
+
+.info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    min-height: 29px;
+}
+.info b { color: #535c69; font-weight: 600; }
+.info .err { color: #c0392b; }
+
+/* ---------- таблица ---------- */
+.wrap { flex: 1; overflow: auto; }
+
+table.grid { border-collapse: collapse; width: 100%; }
+
+.grid th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--head);
+    color: #535c69;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+}
+.grid th:hover { background: #e3e9ec; }
+.grid th .arr { color: #2fc6f6; margin-left: 4px; }
+
+.grid td { padding: 5px 8px; border: 1px solid #e7eaec; vertical-align: top; }
+.grid tbody tr:hover > td { background: var(--hover); }
+.grid tr.has-d { cursor: pointer; }
+.grid tr.open > td { background: #eef7fc; }
+
+.car { display: inline-block; width: 12px; color: #a8adb4; font-size: 10px; }
+tr.open .car { transform: rotate(90deg); }
+
+.mono { font-family: Consolas, "Courier New", monospace; font-size: 12.5px; }
+.num { text-align: right; white-space: nowrap; }
+.c { text-align: center; white-space: nowrap; }
+.yes { color: var(--yes); font-weight: 600; }
+.no { color: #a3a9b0; }
+.dim { color: #b5bac0; }
+
+.cp { cursor: copy; border-radius: 2px; padding: 0 2px; margin: 0 -2px; }
+.cp:hover { background: #dff2fc; box-shadow: inset 0 -1px 0 #7fcdf0; }
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a.go { margin-left: 6px; font-weight: 600; }
+
+mark { background: #fff1a0; color: inherit; padding: 0; }
+
+.sw {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, .15);
+    vertical-align: -2px;
+    margin-right: 4px;
+}
+
+/* ---------- детали строки ---------- */
+tr.det > td { background: #fafcfd; padding: 10px 14px 14px 28px; cursor: default; }
+tr.det:hover > td { background: #fafcfd; }
+.det-title { font-weight: 600; color: #535c69; margin: 6px 0; }
+table.mini { border-collapse: collapse; margin-bottom: 8px; }
+table.mini th, table.mini td { border: 1px solid #e3e6e9; padding: 3px 8px; text-align: left; }
+table.mini th { background: #f2f5f7; font-weight: 600; }
+pre {
+    margin: 0;
+    max-height: 340px;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #e3e6e9;
+    padding: 8px;
+    font: 12px/1.45 Consolas, "Courier New", monospace;
+}
+
+/* ---------- сообщения ---------- */
+.msg { padding: 30px; color: var(--muted); text-align: center; }
+.msg.err { color: #c0392b; }
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(40, 46, 54, .92);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .15s, transform .15s;
+    z-index: 10;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
